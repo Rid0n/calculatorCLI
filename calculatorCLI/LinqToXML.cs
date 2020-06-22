@@ -35,9 +35,8 @@ namespace calculatorCLI
             }
 
             xml.Add(root);
-            Console.WriteLine(root);
             xml.Save(path);
-
+            Console.WriteLine("Session Saved!");
         }
     }
 }
