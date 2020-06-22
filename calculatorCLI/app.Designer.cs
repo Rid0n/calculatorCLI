@@ -13,11 +13,11 @@ namespace calculatorCLI {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
-    internal sealed partial class application : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class app : global::System.Configuration.ApplicationSettingsBase {
         
-        private static application defaultInstance = ((application)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new application())));
+        private static app defaultInstance = ((app)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new app())));
         
-        public static application Default {
+        public static app Default {
             get {
                 return defaultInstance;
             }
@@ -26,12 +26,12 @@ namespace calculatorCLI {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int Mode {
+        public int mode {
             get {
-                return ((int)(this["Mode"]));
+                return ((int)(this["mode"]));
             }
             set {
-                this["Mode"] = value;
+                this["mode"] = value;
             }
         }
     }

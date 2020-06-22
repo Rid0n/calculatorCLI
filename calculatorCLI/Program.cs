@@ -6,6 +6,7 @@ namespace calculatorCLI
     {
         static void Main(string[] args)
         {
+            //AutomaticSerialization n = new AutomaticSerialization();
             BuffCalculator carl = new BuffCalculator();
         }
     }

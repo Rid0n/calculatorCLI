@@ -26,7 +26,7 @@ namespace calculatorCLI
             }
             return input;
         }
-        public string YorN()
+        public bool YorN()
         {
             Console.WriteLine("are you sure? y\\n");
             string response = Console.ReadLine();
@@ -37,7 +37,7 @@ namespace calculatorCLI
                 response = Console.ReadLine();
                 exp = response == "y" || response == "n";
             }
-            return response;
+            return (response=="y");
         }
     }
 }

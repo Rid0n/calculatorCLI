@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 
@@ -7,14 +8,16 @@ using System.Text;
 namespace calculatorCLI
 {
     
-    
+    [DataContract(Name = "CalculatorSession")]
     class BuffCalculator
     {
         private double operand;
-        private Dictionary<int, double> dict = new Dictionary<int, double>();
+        [DataMember(Name ="LogOfOperations")]
+        internal Dictionary<int, double> dict = new Dictionary<int, double>();
         private bool flag = true;
         private bool SessionActive = true;
         private double n;
+        SessionManager manager = new SessionManager();
         UtilityFunctions Utility = new UtilityFunctions();
         private void DisplayTips()
         {
@@ -26,7 +29,7 @@ namespace calculatorCLI
         }
         private void DisplayMenu()
         {
-            Console.WriteLine("Menu \n 1. Begin/Resume calculation \n 2. Show calculation history \n 3. Display n-th calculation \n 4. Start calculator from n-th step \n 5. Save current session(WIP) \n 6. Load another session (WIP) \n 7. Clear Session \n 8. Exit");
+            Console.WriteLine("Menu \n 1. Begin/Resume calculation \n 2. Show calculation history \n 3. Display n-th calculation \n 4. Start calculator from n-th step \n 5. Save current session \n 6. Load another session \n 7. Clear Session \n 8. Exit");
         }
         private void DisplayHistory()
         {
@@ -47,7 +50,6 @@ namespace calculatorCLI
             if (dict.Count >= step) Console.WriteLine("Evaluation at step {0} yielded {1}", step, dict[step]); // check errors
             else Console.WriteLine("no such step!");
         }
-
         public BuffCalculator()
         {
             
@@ -60,7 +62,7 @@ namespace calculatorCLI
                     case 1:
                         DisplayTips();
 
-                        if (dict.Count == 0)
+                        if (dict == null || dict.Count == 0)
                         {
                             Console.WriteLine(">:");
                             n = Utility.ReadDoubleInput();
@@ -87,13 +89,16 @@ namespace calculatorCLI
                         Calculator();
                         break;
                     case 5:
-                        Console.WriteLine("WIP");
+                        Console.WriteLine("Enter filepath. (ex. foo.xml)");
+                        manager.SaveSession(Console.ReadLine(), this);
+                      
                         break;
                     case 6:
-                        Console.WriteLine("WIP");
+                        Console.WriteLine("Enter filepath. (ex. foo.xml)");
+                        dict = manager.LoadSession(Console.ReadLine());
                         break;
                     case 7:
-                        if (Utility.YorN() == "y") dict.Clear();
+                        if (Utility.YorN()) dict.Clear();
                         break;
                     case 8:
                         SessionActive = false;
@@ -117,7 +122,7 @@ namespace calculatorCLI
             {
                 Console.WriteLine("@:");
                 string line = Console.ReadLine();
-                if (!string.IsNullOrEmpty(line) && (line == "/" || line == "+" || line == "q" || line == "*" || line == "-" || line[0] == '#'))
+                if (line == "/" || line == "+" || line == "q" || line == "*" || line == "-" || line[0] == '#')
                 {
                     Console.WriteLine(">:");
                     switch (line)
@@ -155,10 +160,7 @@ namespace calculatorCLI
                     }
                 }
             }
-            foreach (var item in dict)
-            {
-                Console.WriteLine("{0} - {1}", item.Key, item.Value);
-            }
+            
         }
 
     }
