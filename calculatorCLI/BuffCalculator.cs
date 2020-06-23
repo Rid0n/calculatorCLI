@@ -11,12 +11,10 @@ namespace calculatorCLI
     [DataContract(Name = "CalculatorSession")]
     class BuffCalculator
     {
-        private double operand;
+        
         [DataMember(Name ="LogOfOperations")]
         internal Dictionary<int, double> dict = new Dictionary<int, double>();
-        private bool flag = true;
         private bool SessionActive = true;
-        private double n;
         SessionManager manager = new SessionManager();
         UtilityFunctions Utility = new UtilityFunctions();
         private void DisplayTips()
@@ -50,9 +48,8 @@ namespace calculatorCLI
             if (dict.Count >= step) Console.WriteLine("Evaluation at step {0} yielded {1}", step, dict[step]); // check errors
             else Console.WriteLine("no such step!");
         }
-        public BuffCalculator()
+        public void StartSession()
         {
-            
             DisplayMenu();
             Console.WriteLine(">:");
             while (SessionActive)
@@ -65,8 +62,7 @@ namespace calculatorCLI
                         if (dict == null || dict.Count == 0)
                         {
                             Console.WriteLine(">:");
-                            n = Utility.ReadDoubleInput();
-                            dict.Add(1, n);
+                            dict.Add(1, Utility.ReadDoubleInput());
                             Calculator();
                         }
                         else
@@ -91,7 +87,7 @@ namespace calculatorCLI
                     case 5:
                         Console.WriteLine("Enter filepath. (ex. foo.xml)");
                         manager.SaveSession(Console.ReadLine(), this);
-                      
+
                         break;
                     case 6:
                         Console.WriteLine("Enter filepath. (ex. foo.xml)");
@@ -109,12 +105,13 @@ namespace calculatorCLI
                         break;
                 }
             }
-            
         }
         private void Calculator()
         {
+            bool flag = true;
+            double operand;
+            double n;
             int step = dict.Count;
-            flag = true;
             n = dict[step];
             Console.WriteLine("#{0}:{1}", step, n);
 
