@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 namespace calculatorCLI
 {
-    class LinqToXML : FileManager
+    class LinqToXML : IFileManager
     {
-        public Dictionary<int,double> LoadSession(string path)
+        public SerializableDictionary<int, double> LoadSession(string path)
         {
-            XElement xml = XElement.Load("ha.xml");
-            Dictionary<int, double> dict = new Dictionary<int, double>();
-            dict = xml.Descendants("Calculation").Descendants("KeyValuePairOfintdouble").ToDictionary(p => int.Parse(p.Element("Key").Value), p => double.Parse(p.Element("Value").Value));
+            XElement xml = XElement.Load(path);
+            SerializableDictionary<int, double> dict = new SerializableDictionary<int, double>();
+            foreach (var item in xml.Descendants("Entries").Descendants("Item"))
+            {
+                int key = int.Parse(item.Element("Key").Value);
+                double value = double.Parse(item.Element("Value").Value);
+                dict.Add(key, value);
+            }
             Console.WriteLine("Session Loaded!");
             return dict;
         }
@@ -20,18 +23,16 @@ namespace calculatorCLI
             Dictionary<int, double> dict = calculatorState.dict;
             
             XDocument xml = new XDocument();
-            XElement root = new XElement("CalculatorSession");
-            XElement calc = new XElement("Calculation");
-            //XElement root = new XElement("CalculatorSession", new XElement("Calculation", new XElement("KeyValuePairOfintdouble",
-            //    from keyValue in dict select new XElement(keyValue.Key.ToString(), keyValue.Value)
-            //)));
+            XElement root = new XElement("LogOfOperations");
+            XElement calc = new XElement("Entries");
+
             root.Add(calc);
-            foreach (var item in dict) // add new keyvalue pairs
+            foreach (var pair in dict) // add new keyvalue pairs
             {
-                XElement pair = new XElement("KeyValuePairOfintdouble");
-                pair.Add(new XElement("Key", item.Key));
-                pair.Add(new XElement("Value", item.Value));
-                calc.Add(pair);
+                XElement Item = new XElement("Item");
+                Item.Add(new XElement("Key", new XElement("int",pair.Key)));
+                Item.Add(new XElement("Value", new XElement("double",pair.Value)));
+                calc.Add(Item);
             }
 
             xml.Add(root);

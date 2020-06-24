@@ -4,9 +4,9 @@ using System.Text;
 
 namespace calculatorCLI
 {
-    interface FileManager
+    interface IFileManager
     {
         public void SaveSession(string path, BuffCalculator calculatorState);
-        public Dictionary<int,double> LoadSession(string path);
+        public SerializableDictionary<int, double> LoadSession(string path);
     }
 }

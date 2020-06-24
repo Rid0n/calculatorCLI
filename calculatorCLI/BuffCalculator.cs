@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
-
-
+using System.Xml.Serialization;
 
 namespace calculatorCLI
 {
-    
-    [DataContract(Name = "CalculatorSession")]
-    class BuffCalculator
+    [XmlRoot("LogOfOperations")]
+    //[DataContract(Namespace="",Name ="LogOfOperations")]
+    public class BuffCalculator
     {
         
-        [DataMember(Name ="LogOfOperations")]
-        internal Dictionary<int, double> dict = new Dictionary<int, double>();
+        //[DataMember(Name ="Operations")]
+        [XmlElement("Entries")]
+        public SerializableDictionary<int,double> dict = new SerializableDictionary<int, double>();
         private bool SessionActive = true;
-        SessionManager manager = new SessionManager();
+        private SessionManager manager = new SessionManager();
         UtilityFunctions Utility = new UtilityFunctions();
         private void DisplayTips()
         {

@@ -5,14 +5,14 @@ using System.Text;
 
 namespace calculatorCLI
 {
-    class SessionManager : FileManager // exists to choose desired file management mode
+    class SessionManager : IFileManager // exists to choose desired file management mode
 
     {
-        private FileManager mode;
+        private IFileManager mode;
 
         public SessionManager()
         {
-            int Mode = app.Default.mode;
+            int Mode = 1; //app.Default.mode;
             switch (Mode)
             {
                 case 1:
@@ -42,7 +42,7 @@ namespace calculatorCLI
 
         
         
-        public Dictionary<int,double> LoadSession(string path)
+        public SerializableDictionary<int, double> LoadSession(string path)
         {
             try
             {
