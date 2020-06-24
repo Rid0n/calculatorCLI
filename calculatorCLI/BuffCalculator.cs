@@ -7,11 +7,9 @@ using System.Xml.Serialization;
 namespace calculatorCLI
 {
     [XmlRoot("LogOfOperations")]
-    //[DataContract(Namespace="",Name ="LogOfOperations")]
     public class BuffCalculator
     {
         
-        //[DataMember(Name ="Operations")]
         [XmlElement("Entries")]
         public SerializableDictionary<int,double> dict = new SerializableDictionary<int, double>();
         private bool SessionActive = true;

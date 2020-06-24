@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+
 
 namespace calculatorCLI
 {
@@ -12,7 +10,7 @@ namespace calculatorCLI
 
         public SessionManager()
         {
-            int Mode = 1; //app.Default.mode;
+            int Mode = 2; //app.Default.mode;
             switch (Mode)
             {
                 case 1:

@@ -90,9 +90,9 @@ namespace calculatorCLI
 
         {
 
-            XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
+            XmlSerializer keySerializer = new XmlSerializer(typeof(TKey),"http://calculatorCLI");
 
-            XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
+            XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue), "http://calculatorCLI");
 
 
 

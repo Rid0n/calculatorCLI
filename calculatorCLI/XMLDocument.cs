@@ -39,6 +39,7 @@ namespace calculatorCLI
 
             XmlElement root = xml.CreateElement("LogOfOperations");
             xml.AppendChild(root);
+            xml.DocumentElement.SetAttribute("xmlns","http://calculatorCLI");
             XmlElement calc = xml.CreateElement("Entries");
             root.AppendChild(calc);
             foreach (KeyValuePair<int, double> pair in dict)

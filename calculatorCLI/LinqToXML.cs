@@ -23,15 +23,16 @@ namespace calculatorCLI
             Dictionary<int, double> dict = calculatorState.dict;
             
             XDocument xml = new XDocument();
-            XElement root = new XElement("LogOfOperations");
-            XElement calc = new XElement("Entries");
+            XNamespace ns = "http://calculatorCLI";
+            XElement root = new XElement(ns + "LogOfOperations");
+            XElement calc = new XElement(ns + "Entries");
 
             root.Add(calc);
             foreach (var pair in dict) // add new keyvalue pairs
             {
-                XElement Item = new XElement("Item");
-                Item.Add(new XElement("Key", new XElement("int",pair.Key)));
-                Item.Add(new XElement("Value", new XElement("double",pair.Value)));
+                XElement Item = new XElement(ns + "Item");
+                Item.Add(new XElement(ns + "Key", new XElement(ns + "int",pair.Key)));
+                Item.Add(new XElement(ns + "Value", new XElement(ns + "double",pair.Value)));
                 calc.Add(Item);
             }
 
